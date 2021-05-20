@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BUILD BY PUPPET -->
+<SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
+    clockSkew="180">
+
+    <OutOfProcess tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a" />
+
+    <ApplicationDefaults id="default"
+                         entityID="https://<%=@site_fqdn-%>/dashboard-shib"
+                         REMOTE_USER="eppn persistent-id targeted-id"
+                         cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
+
+        <Sessions lifetime="28800" timeout="3600" relayState="ss:mem"
+                  checkAddress="false" handlerSSL="true" cookieProps="https"
+                  redirectLimit="whitelist"
+<% if @shib_testing_md -%>
+                  redirectWhitelist="https://cloud-areapd-test.pd.infn.it/ https://keystone-cv-test.pd.infn.it/ https://cloud-areapd-test.pd.infn.it:443/ https://keystone-cv-test.pd.infn.it:443/">
+<% else -%>
+                  redirectWhitelist="https://cloud-areapd.pd.infn.it/ https://keystone-cv.pd.infn.it/ https://cloud-areapd.pd.infn.it:443/ https://keystone-cv.pd.infn.it:443/">
+<% end -%>
+
+            <SSO>SAML2</SSO>
+
+            <Logout>Local</Logout>
+
+            <Handler type="MetadataGenerator" Location="/Metadata"
+                     template="/etc/shibboleth/horizon-infn-metadata.xml"
+                     signing="true"/>
+
+            <Handler type="Session" Location="/Session" showAttributeValues="false"/>
+
+        </Sessions>
+
+        <Errors redirectErrors="https://<%=@site_fqdn-%>/dashboard/auth/auth_error/"/>
+
+<% if @shib_testing_md -%>
+        <MetadataProvider type="XML"
+                          url="https://idp.infn.it/testing/saml2/idp/metadata.php"
+                          backingFilePath="/var/cache/shibboleth/idp.infn.it-testing-metadata.xml"/>
+        <MetadataProvider type="XML"
+                          url="https://shibidpdev.cca.unipd.it/idp/shibboleth"
+                          backingFilePath="/var/cache/shibboleth/idp.unipd.it-testing-metadata.xml"/>
+<% else -%>
+        <MetadataProvider type="XML"
+                          url="https://idp.infn.it/saml2/idp/metadata.php"
+                          backingFilePath="/var/cache/shibboleth/idp.infn.it-metadata.xml"/>
+        <MetadataProvider type="XML"
+                          url="https://shibidp.cca.unipd.it/idp/shibboleth"
+                          backingFilePath="/var/cache/shibboleth/idp.unipd.it-metadata.xml"/>
+<% end -%>
+
+        <AttributeExtractor type="XML" 
+                            validate="true"
+                            reloadChanges="false"
+                            path="attribute-map.xml"/>
+        <!-- AttributeResolver type="Query" subjectMatch="true"/ -->
+        <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
+
+        <CredentialResolver type="File">
+            <Key><Path>/etc/shibboleth/horizon-infn-key.pem</Path></Key>
+            <Certificate>
+                <Path>/etc/shibboleth/horizon-infn-cert.pem</Path>
+                <Path>/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem</Path>
+            </Certificate>
+        </CredentialResolver>
+
+        <ApplicationOverride id="infn_ssoapp" entityID="https://<%=@keystone_cap_fqdn-%>/v3">
+
+            <Sessions lifetime="28800" timeout="3600" relayState="ss:mem"
+                      checkAddress="false" handlerSSL="true" cookieProps="https"
+                      redirectLimit="whitelist"
+<% if @shib_testing_md -%>
+                  redirectWhitelist="https://cloud-areapd-test.pd.infn.it/ https://keystone-cv-test.pd.infn.it/ https://cloud-areapd-test.pd.infn.it:443/ https://keystone-cv-test.pd.infn.it:443/">
+<% else -%>
+                  redirectWhitelist="https://cloud-areapd.pd.infn.it/ https://keystone-cv.pd.infn.it/ https://cloud-areapd.pd.infn.it:443/ https://keystone-cv.pd.infn.it:443/">
+<% end -%>
+
+                <SSO>SAML2</SSO>
+
+                <Logout>Local</Logout>
+
+                <Handler type="MetadataGenerator" Location="/Metadata"
+                         template="/etc/shibboleth/keystone-infn-metadata.xml"
+                         signing="true"/>
+
+            </Sessions>
+
+            <Errors redirectErrors="https://<%=@cv_site_fqdn-%>/dashboard/auth/auth_error/"/>
+
+            <CredentialResolver type="File">
+                <Key><Path>/etc/shibboleth/keystone-infn-key.pem</Path></Key>
+                <Certificate>
+                    <Path>/etc/shibboleth/keystone-infn-cert.pem</Path>
+                    <Path>/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem</Path>
+                </Certificate>
+            </CredentialResolver>
+
+        </ApplicationOverride>
+
+
+        <ApplicationOverride id="unipd_app" entityID="https://<%=@cv_site_fqdn-%>/dashboard-shib">
+
+            <Sessions lifetime="28800" timeout="3600" relayState="ss:mem"
+                      checkAddress="false" handlerSSL="true" cookieProps="https"
+                      redirectLimit="whitelist"
+<% if @shib_testing_md -%>
+                      redirectWhitelist="https://cloudveneto-test.ict.unipd.it/ https://keystone-cv-test.ict.unipd.it/ https://cloudveneto-test.ict.unipd.it:443/ https://keystone-cv-test.ict.unipd.it:443/">
+<% else -%>
+                      redirectWhitelist="https://cloudveneto.ict.unipd.it/ https://keystone-cv.ict.unipd.it/ https://cloudveneto.ict.unipd.it:443/ https://keystone-cv.ict.unipd.it:443/">
+<% end -%>
+
+                <SSO>SAML2</SSO>
+
+                <Logout>Local</Logout>
+
+                <Handler type="MetadataGenerator" Location="/Metadata"
+                         template="/etc/shibboleth/horizon-unipd-metadata.xml"
+                         signing="true"/>
+
+            </Sessions>
+
+            <Errors redirectErrors="https://<%=@cv_site_fqdn-%>/dashboard/auth/auth_error/"/>
+
+            <CredentialResolver type="File">
+                <Key><Path>/etc/shibboleth/horizon-unipd-key.pem</Path></Key>
+                <Certificate>
+                    <Path>/etc/shibboleth/horizon-unipd-cert.pem</Path>
+                    <Path>/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem</Path>
+                </Certificate>
+            </CredentialResolver>
+
+        </ApplicationOverride>
+
+
+        <ApplicationOverride id="unipd_ssoapp" entityID="https://<%=@keystone_cv_fqdn-%>/v3">
+
+            <Sessions lifetime="28800" timeout="3600" relayState="ss:mem"
+                      checkAddress="false" handlerSSL="true" cookieProps="https"
+                      redirectLimit="whitelist"
+<% if @shib_testing_md -%>
+                      redirectWhitelist="https://cloudveneto-test.ict.unipd.it/ https://keystone-cv-test.ict.unipd.it/ https://cloudveneto-test.ict.unipd.it:443/ https://keystone-cv-test.ict.unipd.it:443/">
+<% else -%>
+                      redirectWhitelist="https://cloudveneto.ict.unipd.it/ https://keystone-cv.ict.unipd.it/ https://cloudveneto.ict.unipd.it:443/ https://keystone-cv.ict.unipd.it:443/">
+<% end -%>
+
+                <SSO>SAML2</SSO>
+
+                <Logout>Local</Logout>
+
+                <Handler type="MetadataGenerator" Location="/Metadata"
+                         template="/etc/shibboleth/keystone-unipd-metadata.xml"
+                         signing="true"/>
+
+            </Sessions>
+
+            <Errors redirectErrors="https://<%=@cv_site_fqdn-%>/dashboard/auth/auth_error/"/>
+
+            <CredentialResolver type="File">
+                <Key><Path>/etc/shibboleth/keystone-unipd-key.pem</Path></Key>
+                <Certificate>
+                    <Path>/etc/shibboleth/keystone-unipd-cert.pem</Path>
+                    <Path>/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem</Path>
+                </Certificate>
+            </CredentialResolver>
+
+        </ApplicationOverride>
+
+    </ApplicationDefaults>
+    
+    <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
+    <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
+
+</SPConfig>
+

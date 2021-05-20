@@ -1,0 +1,413 @@
+class controller_wallaby::params ($cloud_role){
+
+
+  if $::controller_wallaby::cloud_role == "is_production" {
+
+   ##########################################
+   # Cloud di produzione
+   $aai_db_host = ""
+   $aai_db_name = ""
+   $aai_db_port = 0
+   $aai_db_pwd = ""
+   $aai_db_user = ""
+   $aai_mail_admins = {'Cloud Support', ''}
+   $aai_mail_host = ""
+   $aai_mail_port = 25
+   $aai_mail_pwd = ""
+   $aai_mail_sender = ""
+   $aai_mail_user = ""
+   $admin_password = ''
+   $auth_uri = 'http://xxx.xxx.xxx.xxx:5000'
+   $auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $cinder_ceph_ec_rbd_pool = ''
+   $cinder_ceph_rbd_pool = ''
+   $cinder_ceph_rbd_secret_uuid = ''
+   $cinder_ceph_rbd_user = ''
+   $cinder_db = ''
+   $cinder_default_volume_type = 'ceph-ec'
+   $cinder_enabled_backends = 'ceph,iscsi-infnpd,equallogic-unipd,ceph-ec'
+   $cinder_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $cinder_password = ''
+   $cinder_public_endpoint = ''
+   $cv_site_fqdn = "cloudveneto.ict.unipd.it"
+   $ec2_db = ''
+   $ec2_external_network = ''
+   $ec2_keystone_url = ''
+   $ec2_password = ''
+   $glance_api_rbd_store_pool = ''
+   $glance_api_rbd_store_user = ''
+   $glance_api_servers = ''
+   $glance_auth_url = ''
+   $glance_db = ''
+   $glance_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $glance_password = ''
+   $heat_db = ''
+   $heat_metadata_server_url = ''
+   $heat_password = ''
+   $heat_stack_domain_admin_password = ''
+   $heat_waitcondition_server_url = ''
+   $ip_ctrl1 = ''
+   $ip_ctrl2 = ''
+   $is_production = true
+   $keystone_admin_endpoint =  ''
+   $keystone_cap_fqdn = "keystone-cv.pd.infn.it"
+   $keystone_cv_fqdn = "keystone-cv.ict.unipd.it"
+   $keystone_db =  ''
+   $keystone_public_endpoint =  ''
+   $logserver_for_vms = ''
+   $memcached_servers = ''
+   $memcached_servers_horizon = ''
+   $metadata_proxy_shared_secret = '' 
+   $ml2_bridge_mappings = ''
+   $ml2_network_vlan_ranges = '' 
+   $mysql_admin_password = ''
+   $neutron_auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $neutron_db = ''
+   $neutron_password = ''
+   $neutron_endpoint_override = ''
+   $neutron_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000' 
+
+   $nova_api_db = ''
+   $nova_cinder_endpoint_template = ''
+   $nova_db = ''
+   $nova_disk_allocation_ratio = ''
+   $nova_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000/v3'
+   $nova_password = ''
+   $nova_placement_auth_url = 'http://xxx.xxx.xxx.xxx:5000/v3'
+   $nova_ram_allocation_ratio = ''
+   $placement_auth_url = ''
+   placement_db = '' 
+   $placement_password = ''
+   $private_key = ''
+   $project_name = 'services'
+   $pub_key = "ssh-rsa "   
+   $site_fqdn = "cloud-areapd.pd.infn.it"
+   $transport_url = ''
+   $vip_mgmt = ''
+   $vip_pub = ''
+   $www_authenticate_uri = 'https://xxx.xxx.xxx.xxx:443'
+   } 
+    
+   if $::controller_wallaby::cloud_role == "is_test"    {
+
+   ##########################################
+   # Cloud di test
+
+   $aai_db_host = ""
+   $aai_db_name = ""
+   $aai_db_port = 0
+   $aai_db_pwd = ""
+   $aai_db_user = ""
+   $aai_mail_admins = {'Cloud Support', ''}
+   $aai_mail_host = ""
+   $aai_mail_port = 25
+   $aai_mail_pwd = ""
+   $aai_mail_sender = ""
+   $aai_mail_user = ""
+   $admin_password = ''
+   $auth_uri = 'http://xxx.xxx.xxx.xxx:5000'
+   $auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $cinder_ceph_ec_rbd_pool = ''
+   $cinder_ceph_rbd_pool = ''
+   $cinder_ceph_rbd_secret_uuid = ''
+   $cinder_ceph_rbd_user = ''
+   $cinder_db = ''
+   $cinder_default_volume_type = 'ceph-ec'
+   $cinder_enabled_backends = 'ceph,iscsi-infnpd,,ceph-ec'
+   $cinder_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $cinder_password = ''  
+   $cinder_public_endpoint = ''
+   $cv_site_fqdn = "cloudveneto-test.ict.unipd.it"
+   $dhcp_option_force = ''
+   $dnsmasq_config_file = '/etc/neutron/dnsmasq-neutron.conf'
+   $ec2_db = ''
+   $ec2_external_network = ''
+   $ec2_keystone_url = ''
+   $ec2_password = ''
+   $glance_api_rbd_store_pool = ''
+   $glance_api_rbd_store_user = ''
+   $glance_api_servers = ''
+   $glance_auth_url = ''
+   $glance_db = ''
+   $glance_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $glance_password = ''
+   $heat_db = ''    
+   $heat_metadata_server_url = ''
+   $heat_password = ''
+   $heat_stack_domain_admin_password = ''
+   $heat_waitcondition_server_url = ''
+   $ip_ctrl1 = ''
+   $ip_ctrl2 = ''
+   $is_production = false
+   $keystone_admin_endpoint =  ''
+   $keystone_cap_fqdn = "keystone-cv-test.pd.infn.it"
+   $keystone_cv_fqdn = "keystone-cv-test.ict.unipd.it"
+   $keystone_db =  ''
+   $keystone_public_endpoint =  ''
+   $logserver_for_vms = ''
+   $memcached_servers = ''
+   $memcached_servers_horizon = ''
+   $metadata_proxy_shared_secret = ''
+   $ml2_bridge_mappings = 'external:br-ex'
+   $mysql_admin_password = "undefined"
+   $neutron_auth_url = 'http://xxx.xxx.xxx.xxx:5000'
+   $neutron_db = ''
+   $neutron_password = ''
+   $neutron_endpoint_override = ''
+   $neutron_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000' 
+   $nova_api_db = ''
+   $nova_cinder_endpoint_template = ''
+   $nova_db = ''
+   $nova_disk_allocation_ratio = ''
+   $nova_keystone_authtoken_auth_url = 'http://xxx.xxx.xxx.xxx:5000/v3'
+   $nova_password = ''
+   $nova_placement_auth_url = 'http://xxx.xxx.xxx.xxx:5000/v3'
+   $nova_ram_allocation_ratio = ''
+   $placement_auth_url = ''
+   $placement_db = ''
+   $placement_password = ''
+   $private_key = ''
+   $project_name = 'service'
+   $pub_key = "ssh-rsa "     
+   $site_fqdn = "cloud-areapd-test.pd.infn.it"
+   $transport_url = ''
+   $vip_mgmt = ''
+   $vip_pub = ''
+   $www_authenticate_uri = 'https://xxx.xxx.xxx.xxx:443'    
+   }
+
+   ##########################################
+   # Attributi validi sia per la cloud di test che quella di produzione
+   $amqp_durable_queues = true
+   $allow_automatic_dhcp_failover = true
+   $allow_resize = true
+   $auth_strategy = 'keystone'
+   $auth_type = 'password'
+   $ceph_ec_volume_backend_name = 'ceph-ec'
+   $ceph_ec_volume_group = 'ceph-ec'
+   $ceph_rados_connect_timeout = '-1'
+   $ceph_rbd_ceph_conf = '/etc/ceph/ceph.conf'
+   $ceph_rbd_ceph_ec_conf = '/etc/ceph/ceph-ec.conf'
+   $ceph_rbd_flatten_volume_from_snapshot = false
+   $ceph_rbd_max_clone_depth = '5'
+   $ceph_rbd_store_chunk_size = '4'
+   $ceph_volume_backend_name = 'ceph'
+   $ceph_volume_driver = 'cinder.volume.drivers.rbd.RBDDriver'
+   $ceph_volume_group = 'ceph'
+   $cinder_ceph_rbd_exclusive_cinder_pool = true
+   $cinder_iscsi_helper = 'tgtadm'
+   $cinder_iscsi_nfs_nas_secure_file_permissions = false
+   $cinder_iscsi_nfs_mount_point_base = '/var/lib/cinder/nfs'
+   $cinder_iscsi_shares_config = '/etc/cinder/shares'
+   $cinder_lock_path = '/var/lib/cinder/tmp'
+   $cinder_my_ip = $::mgmt_ip
+   $cinder_username = 'cinder'
+   $dhcp_agents_per_network = '2'
+   $dhcp_driver = 'neutron.agent.linux.dhcp.Dnsmasq'
+   $ec2_cache_backend ='oslo_cache.dict'
+   $ec2_cache_enabled = true
+   $ec2_cinder_service_type = 'volumev3'
+   $ec2_full_vpc_support = false
+   $ec2_lock_path = '/var/lib/ec2-api/tmp'
+   $ec2_user = 'ec2_user'
+   $ec2_log_file = '/var/log/ec2api/ec2api.log'
+   $ec2_my_ip = $vip_mgmt
+   $ec2_nova_metadata_ip = $vip_mgmt
+   $enable_fip_topology_check = 'False'
+   $enabled_apis = 'osapi_compute,metadata'
+   $enabled_filters   = 'AggregateMultiTenancyIsolation,AggregateInstanceExtraSpecsFilter,AvailabilityZoneFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,PciPassthroughFilter'
+   $eqlog_eqlx_group_name = 'CloudUnipdVeneto'
+   $eqlog_eqlx_pool = 'default'
+   $eqlog_san_ip = ''
+   $eqlog_san_login = ''
+   $eqlog_san_password = ''
+   $eqlog_volume_backend_name = 'equallogic-unipd'
+   $eqlog_volume_driver = 'cinder.volume.drivers.dell_emc.ps.PSSeriesISCSIDriver'
+   $eqlog_volume_group = 'equallogic-unipd'
+   $flavor = 'keystone'
+   $glance_image_size_cap = '55000000000'
+   $glance_api_default_store = 'rbd'
+   $glance_api_rbd_store_chunk_size = '8'
+   $glance_api_rbd_store_description = 'Ceph in replica 3'
+   $glance_api_node_staging_path = '/Images/staging/'
+   $glance_api_show_image_direct_url = true
+   $glance_api_enabled_backends	= 'http:http,rbd:rbd'
+   $glance_api_filesystem_store_datadir = '/Images/staging/'
+   $glance_store_datadir = '/var/lib/glance/images/'
+   $glance_username = 'glance'
+   $heat_endpoint_type = 'publicURL'
+   $heat_insecure = true
+   $heat_stack_domain_admin = 'heat_domain_admin'
+   $heat_stack_user_domain_name = 'heat'
+   $heat_username = 'heat'
+   $horizon_secret_key = ''
+   $enable_proxy_headers_parsing = true
+   # MS: openvswitch si puo` usare al posto di neutron.agent.linux.interface.OVSInterfaceDriver 
+   # $interface_driver = 'neutron.agent.linux.interface.OVSInterfaceDriver'                                                     
+   $interface_driver = 'openvswitch'
+   $iscsi_volume_backend_name = 'iscsi-infnpd'
+   $iscsi_volume_driver = 'cinder.volume.drivers.nfs.NfsDriver'
+   $iscsi_volume_group = 'iscsi-infnpd'
+   $keystone_auth_methods = 'sKey,password,token'
+   $keystone_token_provider = 'fernet'
+   $ml2_enable_ipset = true
+   $ml2_enable_security_group = true
+   # Shorter name for ml2_firewall_driver                                                      
+   #$ml2_firewall_driver = 'iptables_hybrid'
+   $ml2_firewall_driver = 'neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver'    
+   $ml2_flat_networks = '*'
+   $ml2_local_ip = $::data_ip
+   $ml2_mechanism_drivers = 'openvswitch'
+   $ml2_tenant_network_types = 'gre'
+   $ml2_tunnel_id_ranges = '1:1000'
+   $ml2_tunnel_types = 'gre'
+   $ml2_type_drivers = 'gre,flat,vlan,vxlan'
+   $neutron_allow_automatic_l3agent_failover = true
+   $neutron_allow_overlapping_ips = true
+   $neutron_core_plugin = 'ml2'
+   $neutron_l3_ha = true
+   $neutron_lock_path = '/var/lib/neutron/tmp'
+   $neutron_max_l3_agents_per_router = '2'
+   $neutron_min_l3_agents_per_router = '2'
+   $neutron_notify_nova_on_port_data_changes = true
+   $neutron_notify_nova_on_port_status_changes = true
+   $neutron_service_plugins = 'router'
+   $neutron_username = 'neutron'
+   ## FF in Stein the name of the service is removed
+   $nova_cinder_catalog_info = 'volumev3::internalURL'
+   $nova_cpu_allocation_ratio = '4.0'
+   $nova_default_schedule_zone = 'nova'
+   $nova_discover_hosts_in_cells_interval = '300'
+   ### FF deprecato in PIKE
+   ### MS ma la doc dice cmq di settarlo
+   $nova_firewall_driver = 'nova.virt.firewall.NoopFirewallDriver'
+   $nova_inject_key = true
+   $nova_inject_partition = '-1'
+   $nova_inject_password = true
+   $nova_oslo_lock_path = '/var/lib/nova/tmp'
+   $nova_scheduler_max_attempts = '10'
+   $nova_host_subset_size = '10'
+   $nova_username = 'nova'
+   $nova_vendordata_providers = 'StaticJSON'
+   $nova_vendordata_jsonfile_path = '/etc/nova/vendor-data.json'
+   $ovs_enable_tunneling = true
+   $pci_titanxp_VGA = '{"name":"GP102_VGA","product_id":"1b02","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_titanxp_SND = '{"name":"GP102_SND","product_id":"10ef","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_quadro_VGA = '{"name":"QUADRO_VGA","product_id":"1e30","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_quadro_Audio = '{"name":"QUADRO_Audio","product_id":"10f7","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_quadro_USB = '{"name":"QUADRO_USB","product_id":"1ad6","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_quadro_SerialBus = '{"name":"QUADRO_SerialBus","product_id":"1ad7","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_geforcegtx_VGA = '{"name":"GK110_VGA","product_id":"1005","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_geforcegtx_SND = '{"name":"GK110_SND","product_id":"0e1a","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_t4 = '{"name":"T4","product_id":"1eb8","vendor_id":"10de","device_type":"type-PF"}'
+   $pci_v100 = '{"name":"V100","product_id":"1df6","vendor_id":"10de","device_type":"type-PCI"}'
+   $pci_passthrough_whitelist =  '{\"vendor_id\":\"10de\"}'
+   $placement_username = 'placement'
+   $project_domain_name = 'Default'
+   $quota_network = '1'
+   $quota_subnet = '1'
+   $quota_port = '51'
+   $quota_router = '0'
+   $quota_floatingip = '0'
+   $rabbit_ha_queues = true
+   $region_name = 'regionOne'
+   $service_metadata_proxy = true
+   $token_expiration = '32400'
+   $use_neutron = true
+   $user_domain_name = 'default'
+   $vnc_enabled = true
+   
+  ############################################################################
+  #  Security params
+  ############################################################################
+
+  $host_cert = "/etc/grid-security/infn-cert.pem"
+  $host_key = "/etc/grid-security/infn-key.pem"
+  $unipd_cert = "/etc/grid-security/unipd-cert.pem"
+  $unipd_key = "/etc/grid-security/unipd-key.pem"
+  $keystone_infn_cert = "/etc/grid-security/keystone-infn-cert.pem"
+  $keystone_infn_key = "/etc/grid-security/keystone-infn-key.pem"
+  $keystone_unipd_cert = "/etc/grid-security/keystone-unipd-cert.pem"
+  $keystone_unipd_key = "/etc/grid-security/keystone-unipd-key.pem"
+  $cafile = "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+  $crl_file_list = []
+
+  ############################################################################
+  #  AAI estensions
+  ############################################################################
+  
+  $enable_aai_ext = false
+  $cap_repo_url = "http://artifacts.pd.infn.it/packages/CAP/openstack-security-integrations_centos7_wallaby.repo"
+  $notification_plan = "5,10,20"
+  $help_url = "https://${site_fqdn}/Users_Guide/html-desktop/"
+
+  ############################################################################
+  #  Shibboleth params
+  ############################################################################
+
+  $enable_shib = true
+  $shib_repo_url = "http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/security:shibboleth.repo"
+  $shib_info_url = "https://cloud-areapd.pd.infn.it/Users_Guide/html-desktop/"
+  
+  if $::controller_wallaby::cloud_role == "is_production" {
+    $infnaai_ent_id = "https://idp.infn.it/saml2/idp/metadata.php"
+    $shib_testing_md = false
+  } else {
+    $infnaai_ent_id = "https://idp.infn.it/testing/saml2/idp/metadata.php"
+    $shib_testing_md = true
+  }
+
+  $unipdaai_ent_id = "https://shibidp.cca.unipd.it/idp/shibboleth"
+
+  ############################################################################
+  #  OpenID Connect params
+  ############################################################################
+
+  if $::controller_wallaby::cloud_role == "is_production" {
+
+    $enable_oidc = false
+    $enable_infncloud = false
+
+  } else {
+
+    $enable_oidc      = false
+    $enable_infncloud = false
+    $oidc_passphrase  = "xxxxxxxxxxx"
+    $oidc_md_dir      = "/var/cache/httpd/mod_auth_openidc/metadata"
+    $oidc_intro_ep    = ""
+
+    $oidc_providers = {
+      "dodas" => {
+        "metadata"    => "https://dodas-iam.cloud.cnaf.infn.it/.well-known/openid-configuration",
+        "iss"         => "https://dodas-iam.cloud.cnaf.infn.it/oidc/",
+        "descr"       => "DODAS IAM",
+        "protocol"    => "oidc",
+        "map_tag"     => "dodas_sso",
+        "map_local"   => "[{\"user\" : {\"name\" : \"{0}\", \"type\" : \"ephemeral\", \"email\" : \"{1}\" }, \"group\" : { \"id\" : \"*****\" }}]",
+        "map_remote"  => "[{ \"type\" : \"OIDC-preferred_username\" }, { \"type\" : \"OIDC-email\" }]",
+        "clients"     => {
+            "${keystone_cap_fqdn}" => {
+                "client_id"  => "xxxxxxxxxxx",
+                "secret"     => "xxxxxxx"
+            },
+            "${site_fqdn}" => {
+                "client_id"  => "xxxxxxxxxxx",
+                "secret"     => "xxxxxxx"
+            },
+            "${keystone_cv_fqdn}" => {
+                "client_id"  => "xxxxxxxxxxx",
+                "secret"     => "xxxxxxx"
+            },
+            "${cv_site_fqdn}" => {
+                "client_id"  => "xxxxxxxxxxx",
+                "secret"     => "xxxxxxx"
+            }
+        }
+      }
+    }
+
+    $infncloud_clientid   = ""
+    $infncloud_secret     = ""
+  }
+
+}
