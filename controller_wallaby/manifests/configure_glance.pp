@@ -5,7 +5,8 @@ class controller_wallaby::configure_glance inherits controller_wallaby::params {
 # Crea la directory per node_staging_uri
 # - popola il file /etc/glance/glance-api.conf
 # - popola il file /etc/glance/glance-registry.conf
-#   Crea il file /etc/glance/policy.json
+## PEM da wallaby glance-registry non c'e' piu' glance-registry.conf
+# - crea il file /etc/glance/policy.json
 
 # Changes wrt default:
 # role:admi required for delete_image_location, get_image_location, set_image_location
@@ -135,33 +136,4 @@ define remove_config ($conf_file, $section, $param, $value) {
   controller_wallaby::configure_glance::do_config { 'glance_api_rabbit_ha_queues': conf_file => '/etc/glance/glance-api.conf', section => 'oslo_messaging_rabbit', param => 'rabbit_ha_queues', value => $controller_wallaby::params::rabbit_ha_queues, }
   controller_wallaby::configure_glance::do_config { 'glance_api_amqp_durable_queues': conf_file => '/etc/glance/glance-api.conf', section => 'oslo_messaging_rabbit', param => 'amqp_durable_queues', value => $controller_wallaby::params::amqp_durable_queues, }
 
-
-
-
-     
-## PEM da wallaby glance-registry non c'e' piu'
-#  glance-registry.conf
-#
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_db': conf_file => '/etc/glance/glance-registry.conf', section => 'database', param => 'connection', value => $controller_wallaby::params::glance_db, }
-#
-##  controller_wallaby::configure_glance::do_config { 'glance_reg_image_verbose': conf_file => '/etc/glance/glance-registry.conf', section => 'DEFAULT', param => 'verbose', value => false, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_image_size_cap': conf_file => '/etc/glance/glance-registry.conf', section => 'DEFAULT', param => 'image_size_cap', value => $controller_wallaby::params::glance_image_size_cap, }
-#  # FF in rocky [keystone_authtoken] auth_uri diventa www_authenticate_uri
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_www_authenticate_uri': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'www_authenticate_uri', value => $controller_wallaby::params::www_authenticate_uri, }
-#  # FF in queens e rocky [keystone_authtoken] auth_url gira sulla porta 5000
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_auth_url': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'auth_url', value => $controller_wallaby::params::glance_keystone_authtoken_auth_url, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_project_domain_name': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'project_domain_name', value => $controller_wallaby::params::project_domain_name, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_user_domain_name': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'user_domain_name', value => $controller_wallaby::params::user_domain_name, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_project_name': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'project_name', value => $controller_wallaby::params::project_name, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_username': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'username', value => $controller_wallaby::params::glance_username, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_password': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'password', value => $controller_wallaby::params::glance_password, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_cafile': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'cafile', value => $controller_wallaby::params::cafile, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_memcached_servers': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'memcached_servers', value => $controller_wallaby::params::memcached_servers, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_auth_type': conf_file => '/etc/glance/glance-registry.conf', section => 'keystone_authtoken', param => 'auth_type', value => $controller_wallaby::params::auth_type, }
-#
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_flavor': conf_file => '/etc/glance/glance-registry.conf', section => 'paste_deploy', param => 'flavor', value => $controller_wallaby::params::flavor, }
-# 
-## Settings needed for ceilomer     
-##  controller_wallaby::configure_glance::do_config { 'glance_reg_notification_driver': conf_file => '/etc/glance/glance-registry.conf', section => 'oslo_messaging_notifications', param => 'driver', value => $controller_wallaby::params::glance_notification_driver, }
-#  controller_wallaby::configure_glance::do_config { 'glance_reg_transport_url': conf_file => '/etc/glance/glance-registry.conf', section => 'DEFAULT', param => 'transport_url', value => $controller_wallaby::params::transport_url, }
 }
