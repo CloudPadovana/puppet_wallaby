@@ -4,6 +4,9 @@ class controller_wallaby::configure_nova inherits controller_wallaby::params {
 # Questa classe:
 # - popola il file /etc/nova/nova.conf
 # - crea il file /etc/nova/policy.json in modo che solo l'owner di una VM possa farne lo stop e delete
+############
+# FF attenzione in wallaby il policy.json deve essere convertito in yaml file, vedi https://docs.openstack.org/oslo.policy/latest/cli/oslopolicy-convert-json-to-yaml.html
+############ 
 # - crea il file /etc/nova/vendor-data.json
 # 
 ###################  
@@ -69,10 +72,10 @@ define do_config_list ($conf_file, $section, $param, $values) {
 
    controller_wallaby::configure_nova::do_config { 'nova_transport_url': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'transport_url', value => $controller_wallaby::params::transport_url, }
    controller_wallaby::configure_nova::do_config { 'nova_my_ip': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'my_ip', value => $controller_wallaby::params::vip_mgmt, }
-   ### FF DEPRECATED in PIKE firewall_driver
-   ### MS: in realta` pero` la guida di installazione dice di metterlo.
-   controller_wallaby::configure_nova::do_config { 'nova_firewall_driver': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'firewall_driver', value => $controller_wallaby::params::nova_firewall_driver, }
-   ###
+   ################# 
+   # FF removed in ussuri # 
+   #controller_train::configure_nova::do_config { 'nova_firewall_driver': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'firewall_driver', value => $controller_wallaby::params::nova_firewall_driver, }
+   ################# 
    controller_wallaby::configure_nova::do_config { 'nova_use_neutron': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'use_neutron', value => $controller_wallaby::params::use_neutron, }
    controller_wallaby::configure_nova::do_config { 'nova_cpu_allocation_ratio': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'cpu_allocation_ratio', value => $controller_wallaby::params::nova_cpu_allocation_ratio, }
    controller_wallaby::configure_nova::do_config { 'nova_disk_allocation_ratio': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'disk_allocation_ratio', value => $controller_wallaby::params::nova_disk_allocation_ratio, }
@@ -90,11 +93,6 @@ define do_config_list ($conf_file, $section, $param, $values) {
 
    controller_wallaby::configure_nova::do_config { 'nova_db': conf_file => '/etc/nova/nova.conf', section => 'database', param => 'connection', value => $controller_wallaby::params::nova_db, }
    controller_wallaby::configure_nova::do_config { 'nova_enabled_apis': conf_file => '/etc/nova/nova.conf', section => 'DEFAULT', param => 'enabled_apis', value => $controller_wallaby::params::enabled_apis, }
-
-   ## FF in wallaby si deve creare il DB placement, con relativa connection url. Vanno spostati i dati
-   #controller_wallaby::configure_nova::do_config { 'nova_placement_db': conf_file => '/etc/nova/nova.conf', section => 'placement_database', param => 'connection', value => $controller_wallaby::params::nova_placement_db, }
-   ###
-
    controller_wallaby::configure_nova::do_config { 'nova_oslo_lock_path': conf_file => '/etc/nova/nova.conf', section => 'oslo_concurrency', param => 'lock_path', value => $controller_wallaby::params::nova_oslo_lock_path, }
 
 
