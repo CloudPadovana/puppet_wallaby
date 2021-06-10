@@ -5,20 +5,20 @@ class controller_wallaby::configure_glance inherits controller_wallaby::params {
 # Crea la directory per node_staging_uri
 # - popola il file /etc/glance/glance-api.conf
 # - popola il file /etc/glance/glance-registry.conf
-## PEM da wallaby glance-registry non c'e' piu' glance-registry.conf
-# - crea il file /etc/glance/policy.json
+## PEM da wallaby glance-registry non c'e' piu'
+# - crea il file /etc/glance/policy.yaml
 
 # Changes wrt default:
-# role:admi required for delete_image_location, get_image_location, set_image_location
+# role:admin required for delete_image_location, get_image_location, set_image_location
 # See https://wiki.openstack.org/wiki/OSSN/OSSN-0065
 
   
-    file { "/etc/glance/policy.json":
+    file { "/etc/glance/policy.yaml":
             ensure   => file,
             owner    => "root",
             group    => "glance",
             mode     => "0640",
-            source  => "puppet:///modules/controller_wallaby/glance.policy.json",
+            source  => "puppet:///modules/controller_wallaby/glance.policy.yaml",
           }
           
   

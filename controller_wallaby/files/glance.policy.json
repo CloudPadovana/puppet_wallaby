@@ -1,7 +1,0 @@
-{
-    "context_is_admin":  "role:admin",
-    "default": "role:admin",
-    "publicize_image": "role:admin",
-    "manage_image_cache": "role:admin",
-    "tasks_api_access": "role:admin",
-}
