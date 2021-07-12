@@ -1,23 +1,8 @@
 class controller_wallaby::ceph inherits controller_wallaby::params {
 
-    yumrepo { "ceph":
-               baseurl             => "http://download.ceph.com/rpm-luminous/el7/$::architecture/",
-               descr               => "Ceph packages for $::architecture",
-               enabled             => 1,
-               gpgcheck            => 1,
-               gpgkey              => 'https://download.ceph.com/keys/release.asc',
-            }
-    yumrepo { "ceph-noarch":
-               baseurl             => "http://download.ceph.com/rpm-luminous/el7/noarch",
-               descr               => "Ceph packages for noarch",
-               enabled             => 1,
-               gpgcheck            => 1,
-               gpgkey              => 'https://download.ceph.com/keys/release.asc',
-            }
 
      package { 'ceph-common':
               ensure => 'installed',
-              require => [ Yumrepo["ceph-noarch"], Yumrepo["ceph"] ]
              }
 ####ceph.conf, ceph.client.cinder ceph.client.glance keyring file are in /controller_wallaby/files dir
                                                             

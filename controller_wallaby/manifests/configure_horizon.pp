@@ -107,11 +107,6 @@ class controller_wallaby::configure_horizon inherits controller_wallaby::params 
         require => Package["mariadb"],
     }
 
-    exec { "makemigrations_db":
-        command => "/usr/bin/python /usr/share/openstack-dashboard/manage.py makemigrations --name ocata_changes openstack_auth_shib && /usr/sbin/runuser -s /bin/bash -c 'python /usr/share/openstack-dashboard/manage.py migrate' -- apache || echo ignoreerrors",
-        onlyif  => "/usr/bin/test ! -e /usr/lib/python2.7/site-packages/openstack_auth_shib/migrations/*_ocata_changes.py",
-        require => Exec["create-$aai_db_name-db"],
-    }
   }
 
   ############################################################################

@@ -2,7 +2,7 @@ class controller_wallaby ($cloud_role_foreman = "undefined") {
 
   $cloud_role = $cloud_role_foreman
 
-  $ocatapackages = [ "openstack-utils",
+  $ocatapackages = [ "crudini",
 
                    ]
 

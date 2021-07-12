@@ -10,12 +10,23 @@ class controller_wallaby::service inherits controller_wallaby::params {
                    subscribe   => Class['controller_wallaby::configure_horizon'],
            }
 
- service { "fetch-crl-cron":
-                   ensure      => running,
-                   enable      => true,
-                   hasstatus   => true,
-                   hasrestart  => true,
-           }
+
+# service { "fetch-crl-cron":
+#                   ensure      => running,
+#                   enable      => true,
+#                   hasstatus   => true,
+#                   hasrestart  => true,
+#           }
+
+file { "/etc/cron.d/fetch-crl":
+    ensure   => file,
+    owner    => "root",
+    group    => "root",
+    mode     => "0600",
+    content  => file("controller_wallaby/fetch-crl.cron"),
+  }
+
+
 
  ## FF added placement in Train ##       
  # Services for keystone, placement       
@@ -165,13 +176,13 @@ class controller_wallaby::service inherits controller_wallaby::params {
                    hasrestart  => true,
                    subscribe   => Class['controller_wallaby::configure_cinder'],
            }
-    service { "target":
-                   ensure      => running,
-                   enable      => true,
-                   hasstatus   => true,
-                   hasrestart  => true,
-                   subscribe   => Class['controller_wallaby::configure_cinder'],
-           }
+#    service { "target":
+#                   ensure      => running,
+#                   enable      => true,
+#                   hasstatus   => true,
+#                   hasrestart  => true,
+#                   subscribe   => Class['controller_wallaby::configure_cinder'],
+#           }
            
  # Services for heat
     service { "openstack-heat-api":

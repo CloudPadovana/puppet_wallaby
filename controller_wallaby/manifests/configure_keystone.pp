@@ -8,17 +8,17 @@ class controller_wallaby::configure_keystone inherits controller_wallaby::params
   
 define do_config ($conf_file, $section, $param, $value) {
              exec { "${name}":
-                              command     => "/usr/bin/openstack-config --set ${conf_file} ${section} ${param} \"${value}\"",
-                              require     => Package['openstack-utils'],
-                              unless      => "/usr/bin/openstack-config --get ${conf_file} ${section} ${param} 2>/dev/null | /bin/grep -- \"^${value}$\" 2>&1 >/dev/null",
+                              command     => "/usr/bin/crudini --set ${conf_file} ${section} ${param} \"${value}\"",
+                              require     => Package['crudini'],
+                              unless      => "/usr/bin/crudini --get ${conf_file} ${section} ${param} 2>/dev/null | /bin/grep -- \"^${value}$\" 2>&1 >/dev/null",
                   }
        }
 
 define remove_config ($conf_file, $section, $param, $value) {
              exec { "${name}":
-                              command     => "/usr/bin/openstack-config --del ${conf_file} ${section} ${param}",
-                              require     => Package['openstack-utils'],
-                              onlyif      => "/usr/bin/openstack-config --get ${conf_file} ${section} ${param} 2>/dev/null | /bin/grep -- \"^${value}$\" 2>&1 >/dev/null",
+                              command     => "/usr/bin/crudini --del ${conf_file} ${section} ${param}",
+                              require     => Package['crudini'],
+                              onlyif      => "/usr/bin/crudini --get ${conf_file} ${section} ${param} 2>/dev/null | /bin/grep -- \"^${value}$\" 2>&1 >/dev/null",
                    }
        }
                                                                                                                                              
@@ -165,8 +165,8 @@ define do_config_list ($conf_file, $section, $param, $values) {
     }
     
     exec { "patch-controllers":
-      command => "/usr/bin/patch /usr/lib/python2.7/site-packages/keystone/server/flask/application.py /usr/share/keystone/application.patch",
-      unless  => "/bin/grep Keystone-patch-0002 /usr/lib/python2.7/site-packages/keystone/server/flask/application.py 2>/dev/null >/dev/null",
+      command => "/usr/bin/patch /usr/lib/python3.6/site-packages/keystone/server/flask/application.py /usr/share/keystone/application.patch",
+      unless  => "/bin/grep Keystone-patch-0002 /usr/lib/python3.6/site-packages/keystone/server/flask/application.py 2>/dev/null >/dev/null",
       require => [ File["/usr/share/keystone/application.patch"], Package["patch"] ],
     }
 

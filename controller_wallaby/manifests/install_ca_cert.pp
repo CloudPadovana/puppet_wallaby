@@ -15,11 +15,6 @@ class controller_wallaby::install_ca_cert inherits controller_wallaby::params {
                      ]
   package { $capackages: ensure => "installed" }
 
-  package { "ca_TERENA-SSL-CA-3":
-    source   => "http://artifacts.pd.infn.it/packages/CAP/misc/CentOS7/current/ca_TERENA-SSL-CA-3.el7.centos.noarch.rpm",
-    provider => "rpm",
-    require  => Package[$capackages],
-  }
 
   file {'INFN-CA.pem':
     source  => 'puppet:///modules/controller_wallaby/INFN-CA.pem',
