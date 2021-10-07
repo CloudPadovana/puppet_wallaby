@@ -161,7 +161,7 @@ define do_config_list ($conf_file, $section, $param, $values) {
       owner    => "keystone",
       group    => "keystone",
       mode     => '0640',
-      source  => "puppet:///modules/controller_wallaby/application.patch",
+      content  => template("controller_wallaby/application.patch.erb"),
     }
     
     exec { "patch-controllers":
